@@ -8,6 +8,9 @@
             "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
         }
     },
+    "babdev/pagerfanta-bundle": {
+        "version": "v3.4.0"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -100,8 +103,17 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "fzaninotto/faker": {
+        "version": "v1.5.0"
+    },
     "gedmo/doctrine-extensions": {
         "version": "v3.3.1"
+    },
+    "knplabs/knp-components": {
+        "version": "v3.3.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.7.0"
     },
     "laminas/laminas-code": {
         "version": "4.4.3"
@@ -114,6 +126,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.13.1"
+    },
+    "pagerfanta/core": {
+        "version": "v3.4.0"
     },
     "phar-io/manifest": {
         "version": "2.0.3"

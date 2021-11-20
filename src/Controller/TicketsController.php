@@ -7,15 +7,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Validator\Constraints\DateTime ;
+use Symfony\Component\Validator\Constraints\DateTime;
 #[Route('/tickets')]
 class TicketsController extends AbstractController
 {
     #[Route('/list_tous', name: 'tickets_list')]
-    public function listtous(): Response
+    public function listtous(PaginatorInterface $paginator , Request $request): Response
     {
-        $tickets = $this->getDoctrine()->getRepository(Ticket::class)->findAll();
+        $alltickets = $this->getDoctrine()->getRepository(Ticket::class)->findAll();
+         $tickets  = $paginator->paginate($alltickets,  $request->query->getInt('page', 1),4);
+
         return $this->render('tickets/index.html.twig', ['tickets' => $tickets]);
     }
     /**
@@ -80,16 +83,30 @@ class TicketsController extends AbstractController
     }
 
     #[Route('/list_intervale/{date_min}/{date_max}', name: 'tickets_list_intervalle')]
-    public function index($date_min,$date_max): Response
+    public function list($date_min,$date_max): Response
     {
 
-        $datemin=new DateTime($date_min);
-        $datemax=new DateTime($date_max);
-        $ticketsint = $this->getDoctrine()->getRepository(Ticket::class)->findByDateRange($datemin,$datemax);
+        $tickets = $this->getDoctrine()->getRepository(Ticket::class)->findAll();
 
 
+        return $this->render('tickets/index2.html.twig', [
+            'tickets' => $tickets,
+            'dateMin' => $date_min,
+            'dateMax' => $date_max,
+        ]);
+    }
+    #[Route('/list/{id}', name: 'tickets_list_id')]
+    public function liste($id): Response
+    {
 
-        return $this->render('tickets/index2.html.twig', ['tickets' => $ticketsint]);
+        $tickets = $this->getDoctrine()->getRepository(Ticket::class)->findAll();
+
+
+        return $this->render('tickets/index3.html.twig', [
+            'tickets' => $tickets,
+            'id' => $id,
+
+        ]);
     }
 
 }

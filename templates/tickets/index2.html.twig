@@ -1,5 +1,5 @@
 {%  extends 'base.html.twig' %}
-{% block title%} Liste des Tickets{% endblock %}
+{% block title%} Liste des Tickets par intervalle de temps {% endblock %}
 {% block body %}
     {% if tickets %}
         <table id="tickets" class="table table-striped">
@@ -13,14 +13,15 @@
             </tr>
             </thead>
             <tbody>
-            {% for ticket in ticketsint  %}
+            {% for ticket in tickets  %}
+                {% if(dateMin < ticket.date|date('Y-m-d')) and ( ticket.date|date('Y-m-d') < dateMax)  %}
                 <tr>
                     <td>{{ ticket.titre }}</td>
                     <td>{{ ticket.personne }}</td>
                     <td>{{ ticket.description }}</td>
                     <td>{{ ticket.statut }}</td>
                     <td>{{ ticket.date|date('Y-m-d') }}</td>
-
+              {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
